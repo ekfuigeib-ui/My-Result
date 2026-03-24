@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ekfuigei Blessing Müsih — Academic Transcript</title>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700;800&family=Inter:wght@200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #faf9f6;
+      --paper:    #ffffff;
+      --ink:      #1c1c1c;
+      --clay:     #b85c38;
+      --clay-dim: #b85c3815;
+      --sand:     #e8e0d5;
+      --muted:    #999490;
+      --thin:     #e2ddd8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ══ VERTICAL LEFT SPINE ══ */
+    .spine {
+      position: fixed;
+      left: 0; top: 0; bottom: 0;
+      width: 48px;
+      border-right: 1px solid var(--thin);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0;
+      z-index: 10;
+      background: var(--bg);
+    }
+
+    .spine-top {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-transform: uppercase;
+    }
+
+    .spine-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--clay);
+    }
+
+    .spine-bottom {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+      text-transform: uppercase;
+    }
+
+    /* ══ MAIN CANVAS ══ */
+    .canvas {
+      margin-left: 48px;
+      min-height: 100vh;
+    }
+
+    /* ══ HEADER ══ */
+    header {
+      padding: 72px 80px 0 80px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      animation: waft 0.8s ease both;
+    }
+
+    .header-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .meta-row span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-row .dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--thin);
+      flex-shrink: 0;
+    }
+
+    .header-num {
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 800;
+      font-size: 120px;
+      line-height: 1;
+      color: var(--sand);
+      letter-spacing: -0.04em;
+      user-select: none;
+    }
+
+    /* ══ NAME BLOCK ══ */
+    .name-section {
+      padding: 48px 80px 0;
+      animation: waft 0.8s 0.1s ease both;
+    }
+
+    .name-blessing {
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 800;
+      font-size: clamp(64px, 11vw, 130px);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      color: var(--clay);
+      display: block;
+    }
+
+    .name-first {
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 400;
+      font-size: clamp(32px, 5vw, 60px);
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      color: var(--ink);
+      display: block;
+    }
+
+    .name-last {
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 700;
+      font-size: clamp(40px, 7vw, 88px);
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      display: block;
+    }
+
+    /* ══ THIN RULE ══ */
+    .rule {
+      margin: 56px 80px 0;
+      height: 1px;
+      background: var(--thin);
+      position: relative;
+      animation: waft 0.8s 0.15s ease both;
+    }
+
+    .rule::before {
+      content: '';
+      position: absolute;
+      left: 0; top: -1px;
+      width: 48px;
+      height: 3px;
+      background: var(--clay);
+    }
+
+    /* ══ INFO ROW ══ */
+    .info-row {
+      padding: 32px 80px;
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--thin);
+      animation: waft 0.8s 0.2s ease both;
+    }
+
+    .info-cell {
+      flex: 1;
+      padding-right: 40px;
+      border-right: 1px solid var(--thin);
+      padding-left: 24px;
+    }
+
+    .info-cell:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+
+    .info-cell:last-child {
+      border-right: none;
+    }
+
+    .info-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .info-val {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    /* ══ TRANSCRIPT SECTION ══ */
+    .transcript-section {
+      padding: 56px 80px;
+      animation: waft 0.8s 0.3s ease both;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .section-label-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .section-label-line {
+      flex: 1;
+      height: 1px;
+      background: var(--thin);
+    }
+
+    .section-label-mark {
+      width: 8px; height: 8px;
+      border: 2px solid var(--clay);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ══ TRANSCRIPT FRAME ══ */
+    .transcript-frame {
+      background: var(--paper);
+      border: 1px solid var(--thin);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Top clay bar */
+    .transcript-frame::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--clay);
+      z-index: 2;
+    }
+
+    .transcript-frame img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+      max-height: 76vh;
+    }
+
+    .placeholder {
+      padding: 96px 40px;
+      text-align: center;
+    }
+
+    .placeholder-circle {
+      width: 72px; height: 72px;
+      border: 1px solid var(--thin);
+      border-radius: 50%;
+      margin: 0 auto 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .placeholder-circle::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      border: 1px solid var(--clay);
+      opacity: 0.4;
+    }
+
+    .placeholder-circle span {
+      font-size: 24px;
+    }
+
+    .placeholder-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .placeholder p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 2.4;
+    }
+
+    .placeholder code { color: var(--clay); }
+
+    /* ══ ACTIONS ══ */
+    .actions {
+      padding: 0 80px 80px;
+      display: flex;
+      gap: 16px;
+      animation: waft 0.8s 0.4s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--clay);
+      color: var(--paper);
+    }
+
+    .btn-primary:hover {
+      background: #a04e30;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--thin);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--clay);
+      color: var(--clay);
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      border-top: 1px solid var(--thin);
+      margin-left: 48px;
+      padding: 28px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: waft 0.8s 0.5s ease both;
+    }
+
+    .footer-l {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .footer-r {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--clay);
+      letter-spacing: 0.05em;
+    }
+
+    /* ══ ANIMATION ══ */
+    @keyframes waft {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 700px) {
+      .spine { display: none; }
+      .canvas { margin-left: 0; }
+      header, .name-section, .rule { padding-left: 24px; padding-right: 24px; }
+      .info-row { padding: 24px; flex-direction: column; gap: 20px; }
+      .info-cell { border-right: none; border-bottom: 1px solid var(--thin); padding: 0 0 16px; }
+      .info-cell:last-child { border-bottom: none; }
+      .transcript-section, .actions { padding-left: 24px; padding-right: 24px; }
+      .actions { padding-bottom: 48px; }
+      footer { padding: 20px 24px; }
+      .header-num { font-size: 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SPINE -->
+  <div class="spine">
+    <span class="spine-top">2025–2026</span>
+    <div class="spine-dot"></div>
+    <span class="spine-bottom">HUIB · Buea</span>
+  </div>
+
+  <!-- CANVAS -->
+  <div class="canvas">
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-meta">
+        <div class="meta-row">
+          <span>Official Academic Transcript</span>
+          <div class="dot"></div>
+          <span>First Semester</span>
+        </div>
+        <div class="meta-row">
+          <span>HND Software Engineering</span>
+          <div class="dot"></div>
+          <span>HIBMAT University Institute of Buea</span>
+        </div>
+      </div>
+      <div class="header-num">01</div>
+    </header>
+
+    <!-- NAME -->
+    <div class="name-section">
+      <span class="name-first">Ekfuigei</span>
+      <span class="name-blessing">Blessing</span>
+      <span class="name-last">Müsih</span>
+    </div>
+
+    <!-- RULE -->
+    <div class="rule"></div>
+
+    <!-- INFO ROW -->
+    <div class="info-row">
+      <div class="info-cell">
+        <div class="info-key">Programme</div>
+        <div class="info-val">HND Software Engineering</div>
+      </div>
+      <div class="info-cell">
+        <div class="info-key">Institution</div>
+        <div class="info-val">HIBMAT University Institute of Buea</div>
+      </div>
+      <div class="info-cell">
+        <div class="info-key">Semester</div>
+        <div class="info-val">First Semester</div>
+      </div>
+      <div class="info-cell">
+        <div class="info-key">Academic Year</div>
+        <div class="info-val">2025 / 2026</div>
+      </div>
+    </div>
+
+    <!-- TRANSCRIPT -->
+    <div class="transcript-section">
+      <div class="section-label">
+        <div class="section-label-mark"></div>
+        <span class="section-label-text">Official Document</span>
+        <div class="section-label-line"></div>
+      </div>
+
+      <div class="transcript-frame">
+        <!--
+          ✅ HOW TO ADD YOUR TRANSCRIPT:
+          1. Name your image file "transcript.jpg" (or .png)
+          2. Place it in the SAME folder as this HTML file
+          3. Replace the placeholder below with:
+             <img src="transcript.jpg" alt="Ekfuigei Blessing Müsih Transcript" />
+        -->
+        <div class="placeholder">
+          <div class="placeholder-circle"><span>📄</span></div>
+          <p class="placeholder-title">Transcript Awaiting</p>
+          <p>
+            Save your image as <code>transcript.jpg</code><br />
+            Place it in the same folder as this file<br />
+            Then replace this block with:<br /><br />
+            <code>&lt;img src="transcript.jpg" alt="Transcript" /&gt;</code>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <!--
+        ✅ Change href="#" to href="transcript.jpg" once image is added
+      -->
+      <a href="#" class="btn btn-primary" download>↓ &nbsp;Download</a>
+      <a href="#" class="btn btn-ghost" target="_blank">↗ &nbsp;Full View</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-l">© 2026 Ekfuigei Blessing Müsih</span>
+    <span class="footer-r">HUIB</span>
+  </footer>
+
+</body>
+</html>
